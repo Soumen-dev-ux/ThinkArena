@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkArena - Where Minds Compete</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="app-container">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-spinner"></div>
+            <h2>Initializing Neural Networks...</h2>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen">
+            <div class="glass-container">
+                <header class="app-header">
+                    <h1 class="app-title">
+                        <span class="title-icon">🚀</span>
+                        ThinkArena
+                    </h1>
+                    <p class="app-subtitle">Where minds compete</p>
+                </header>
+
+                <div class="user-section">
+                    <input type="text" id="player-name" placeholder="Enter your codename..." maxlength="20">
+                </div>
+
+                <div class="category-selection">
+                    <h3>Select Your Domain</h3>
+                    <div class="category-grid">
+                        <button class="category-btn" data-category="science">
+                            <span class="category-icon">⚛️</span>
+                            <span class="category-name">Science</span>
+                        </button>
+                        <button class="category-btn" data-category="history">
+                            <span class="category-icon">🏺</span>
+                            <span class="category-name">History</span>
+                        </button>
+                        <button class="category-btn" data-category="sports">
+                            <span class="category-icon">🏆</span>
+                            <span class="category-name">Sports</span>
+                        </button>
+                        <button class="category-btn" data-category="technology">
+                            <span class="category-icon">🤖</span>
+                            <span class="category-name">Technology</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="difficulty-selection">
+                    <h3>Choose Challenge Level</h3>
+                    <div class="difficulty-buttons">
+                        <button class="difficulty-btn" data-difficulty="easy">
+                            <span class="difficulty-icon">⭐</span>
+                            Novice
+                        </button>
+                        <button class="difficulty-btn" data-difficulty="medium">
+                            <span class="difficulty-icon">⚡</span>
+                            Expert
+                        </button>
+                        <button class="difficulty-btn" data-difficulty="hard">
+                            <span class="difficulty-icon">🔥</span>
+                            Master
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-actions">
+                    <button id="start-quiz-btn" class="modern-btn primary-btn" disabled>
+                        🚀 Launch Mission
+                    </button>
+                    <button id="leaderboard-btn" class="modern-btn secondary-btn">
+                        🏆 Leaderboard
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Game -->
+        <div id="quiz-screen" class="screen">
+            <div class="glass-container quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <span class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions">10</span></span>
+                    </div>
+                    
+                    <div class="quiz-stats">
+                        <div class="stat">
+                            <span class="stat-label">Score</span>
+                            <span id="current-score" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Streak</span>
+                            <span id="current-streak" class="stat-value">0</span>
+                        </div>
+                        <div class="stat timer-stat">
+                            <span class="stat-label">Time</span>
+                            <span id="timer" class="stat-value">30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="category-badge">
+                        <span id="question-category"></span>
+                        <span id="question-difficulty" class="difficulty-badge"></span>
+                    </div>
+                    
+                    <h2 id="question-text" class="question-text"></h2>
+                    
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be generated dynamically -->
+                    </div>
+                    
+                    <div class="question-actions">
+                        <button id="next-question-btn" class="modern-btn primary-btn" style="display: none;">
+                            ⚡ Next Challenge
+                        </button>
+                    </div>
+                </div>
+
+                <div id="feedback-container" class="feedback-container" style="display: none;">
+                    <div class="feedback-content">
+                        <div class="feedback-icon"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="glass-container results-container">
+                <div class="results-header">
+                    <div class="results-icon">
+                        <span id="results-emoji">🎉</span>
+                    </div>
+                    <h2 id="results-title">Mission Complete!</h2>
+                    <p id="results-subtitle">Performance Analysis</p>
+                </div>
+
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="final-score">0</div>
+                        <div class="result-stat-label">Final Score</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="correct-answers">0</div>
+                        <div class="result-stat-label">Correct Answers</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="accuracy">0%</div>
+                        <div class="result-stat-label">Accuracy</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="max-streak">0</div>
+                        <div class="result-stat-label">Best Streak</div>
+                    </div>
+                </div>
+
+                <div class="achievements">
+                    <h3>🏅 Achievements Unlocked</h3>
+                    <div id="achievements-list" class="achievements-list">
+                        <!-- Achievements will be generated dynamically -->
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="play-again-btn" class="modern-btn primary-btn">
+                        🔄 New Mission
+                    </button>
+                    <button id="back-to-menu-btn" class="modern-btn secondary-btn">
+                        🏠 Command Center
+                    </button>
+                    <button id="view-leaderboard-btn" class="modern-btn secondary-btn">
+                        📊 Rankings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div id="leaderboard-screen" class="screen">
+            <div class="glass-container leaderboard-container">
+                <header class="leaderboard-header">
+                    <h2>🏆 Global Rankings</h2>
+                    <p>Elite performers across all domains</p>
+                </header>
+
+                <div class="leaderboard-filters">
+                    <select id="leaderboard-category">
+                        <option value="all">All Categories</option>
+                        <option value="science">Science</option>
+                        <option value="history">History</option>
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                </div>
+
+                <div id="leaderboard-list" class="leaderboard-list">
+                    <!-- Leaderboard entries will be generated dynamically -->
+                </div>
+
+                <div class="leaderboard-actions">
+                    <button id="back-from-leaderboard-btn" class="modern-btn secondary-btn">
+                        🏠 Command Center
+                    </button>
+                    <button id="clear-leaderboard-btn" class="modern-btn danger-btn">
+                        🗑️ Reset Rankings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', createParticles);
+    </script>
+    <script src="questions.js"></script>
+    <script src="leaderboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
